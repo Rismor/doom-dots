@@ -82,3 +82,6 @@
 (map! :leader
       :desc "Switch to previous buffer"
       :n "TAB" #'evil-switch-to-windows-last-buffer)
+
+(after! org
+  (setq org-agenda-files (list "~/org" "~/dev")))
