@@ -17,13 +17,10 @@
 ;;   presentations or streaming.
 ;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
+
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 16 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
+
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
@@ -75,13 +72,28 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-(map! :leader
-      :desc "Save file"
-      :nv "SPC" #'save-buffer)
 
 (map! :leader
-      :desc "Switch to previous buffer"
-      :n "TAB" #'evil-switch-to-windows-last-buffer)
+      (:desc "Save file"
+       :nv "SPC" #'save-buffer)
+      (:desc "Switch to previous buffer"
+       :n "TAB" #'evil-switch-to-windows-last-buffer)
+      (:desc "Kill buffer"
+       :n "wq" #'kill-this-buffer))
+
 
 (after! org
   (setq org-agenda-files (list "~/org" "~/dev")))
+
+(map! :n "J" "ddp" :desc "Move selected text down"
+      :n "K" "ddkP" :desc "Move selected text up")
+
+(after! org
+  (setq org-log-done 'time))
+
+;; add timestamp to completed event even if it was created with org-capture
+(after! org-capture
+  (add-to-list 'org-capture-templates
+               '("t" "Todo with timestamp" entry
+                 (file+headline "~/path/to/your/todo.org" "Tasks")
+                 "* TODO %? %^g\nSCHEDULED: %t\n%i")))

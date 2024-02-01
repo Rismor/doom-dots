@@ -5,7 +5,11 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
+(package! vscode-dark
+  :recipe (:host github :repo "ianyepan/vscode-dark-plus-emacs-theme"))
 
+(package! svelte-mode
+  :recipe (:host github :repo "leafOfTree/svelte-mode" ))
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
