@@ -99,3 +99,34 @@
                '("t" "Todo with timestamp" entry
                  (file+headline "~/path/to/your/todo.org" "Tasks")
                  "* TODO %? %^g\nSCHEDULED: %t\n%i")))
+
+(setq vscode-dark-plus-box-org-todo nil)
+
+(setq mu4e-change-filenames-when-moving t)
+
+;; Refresh mail using isync every 10 mins
+(auth-source-pass-enable)
+(setq ;; MU4E setup
+ mu4e-update-interval(* 10 60)
+ mu4e-get-mail-command "mbsync -a"
+ mu4e-maildir "~/Mail"
+ auth-source-debug t
+ auth-source-do-cache nil
+ auth-sources '(password-store)
+ message-kill-buffer-on-exit t
+ mu4e-attachment-dir "~/Downloads"
+ send-mail-function 'smtpmail-send-it
+ smtpmail-smtp-server "smtp.gmail.com"
+ smtpmail-smtp-service 465
+ smtpmail-stream-type 'ssl
+ mu4e-drafts-folder "/[Gmail].Drafts"
+ mu4e-sent-folder "/[Gmail].Sent Mail"
+ mu4e-refile-folder "/[Gmail].All Mail"
+ mu4e-trash-folder "/[Gmail].Trash"
+ mu4e-maildir-shortcuts
+ `(("/Inbox"                . ?i)
+   ("/[Gmail].Sent Mail"    . ?s)
+   ("/[Gmail].Trash"        . ?t)
+   ("/[Gmail].Drafts"       . ?d)
+   ("/[Gmail].All Mail"     . ?a)
+   ))
