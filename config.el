@@ -96,7 +96,7 @@
 (after! org-capture
   (add-to-list 'org-capture-templates
                '("t" "Todo with timestamp" entry
-                 (file+headline "~/path/to/your/todo.org" "Tasks")
+                 (file+headline "~/org/todo.org" "Tasks")
                  "* TODO %? %^g\nSCHEDULED: %t\n%i")))
 
 
