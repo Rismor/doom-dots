@@ -158,11 +158,12 @@
 
 (defcustom mu4e-bookmarks
   '(
-    (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key 117)
-    (:name "Today's messages" :query "date:today..now AND NOT flag:trashed" :key 116)
-    (:name "Last 7 days" :query "date:7d..now AND NOT flag:trashed" :hide-unread t :key 119)
+    (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND NOT from:morris4028@gmail.com" :key 117)
+    (:name "Today's messages" :query "date:today..now AND NOT flag:trashed AND NOT from:morris4028@gmail.com" :key 116)
+    (:name "Last 7 days" :query "date:7d..now AND NOT flag:trashed AND NOT from:morris4028@gmail.com" :hide-unread t :key 119)
     (:name "Messages with images" :query "mime:image/*" :key 112)
     (:name "Vials and Caps" :query "chanie@fivestarcorr.com" :key ?v)
+    (:name "Sent Last 7 Days" :query "date:7d..now AND from:morris4028@gmail.com AND NOT flag:draft" :key ?s)
     )
   "Customize the mu4e bookmarks."
   :group 'mu4e
