@@ -159,3 +159,6 @@
   :type '(repeat (list (string :tag "Name")
                        (string :tag "Query")
                        (character :tag "Shortcut"))))
+
+;; emacsclient open everything in the main workspace
+(setq persp-emacsclient-init-frame-behaviour-override "main")
