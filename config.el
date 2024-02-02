@@ -171,4 +171,6 @@
                        (character :tag "Shortcut"))))
 
 ;; emacsclient open everything in the main workspace
-(setq persp-emacsclient-init-frame-behaviour-override "main")
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main"))
+
