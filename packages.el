@@ -10,6 +10,9 @@
 
 (package! svelte-mode
   :recipe (:host github :repo "leafOfTree/svelte-mode" ))
+
+(package! mu4e-contrib
+  :recipe (:host github :repo "djcb/mu"))
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
@@ -52,3 +55,4 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+

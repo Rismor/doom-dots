@@ -117,7 +117,17 @@
 (after! mu4e
   (setq smtpmail-smtp-server "smtp.gmail.com")
   (setq smtpmail-smtp-service 465)
-  (setq smtpmail-stream-type 'ssl))
+  (setq smtpmail-stream-type 'ssl)
+  (require 'mu4e-contrib)
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+  (setq shr-color-visible-luminance-min 60)
+  (setq shr-color-visible-distance-min 5)
+  (setq shr-use-colors nil)
+  ;; Define and advice-add your function to disable colorization
+  (advice-add #'shr-colorize-region :around
+              (defun shr-no-colourise-region (&rest _)
+                "Disable shr colorization."
+                (ignore))))
 
 (setq message-send-mail-function 'smtpmail-send-it)
 (setq message-kill-buffer-on-exit t)
