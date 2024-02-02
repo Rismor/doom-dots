@@ -99,33 +99,63 @@
                  (file+headline "~/path/to/your/todo.org" "Tasks")
                  "* TODO %? %^g\nSCHEDULED: %t\n%i")))
 
-(setq vscode-dark-plus-box-org-todo nil)
-
-(setq mu4e-change-filenames-when-moving t)
 
 ;; Refresh mail using isync every 10 mins
-(auth-source-pass-enable)
-(setq ;; MU4E setup
- mu4e-update-interval(* 10 60)
- mu4e-get-mail-command "mbsync -a"
- mu4e-maildir "~/Mail"
- auth-source-debug t
- auth-source-do-cache nil
- auth-sources '(password-store)
- message-kill-buffer-on-exit t
- mu4e-attachment-dir "~/Downloads"
- send-mail-function 'smtpmail-send-it
- smtpmail-smtp-server "smtp.gmail.com"
- smtpmail-smtp-service 465
- smtpmail-stream-type 'ssl
- mu4e-drafts-folder "/[Gmail].Drafts"
- mu4e-sent-folder "/[Gmail].Sent Mail"
- mu4e-refile-folder "/[Gmail].All Mail"
- mu4e-trash-folder "/[Gmail].Trash"
- mu4e-maildir-shortcuts
- `(("/Inbox"                . ?i)
-   ("/[Gmail].Sent Mail"    . ?s)
-   ("/[Gmail].Trash"        . ?t)
-   ("/[Gmail].Drafts"       . ?d)
-   ("/[Gmail].All Mail"     . ?a)
-   ))
+;; (auth-source-pass-enable)
+;; (setq auth-source-debug t)
+;; (setq auth-source-do-cache nil)
+;; (setq auth-sources '(password-store))
+
+;; (setq send-mail-function 'smtpmail-send-it)
+;; (setq smtpmail-smtp-server "smtp.gmail.com")
+;; (setq smtpmail-smtp-service 465)
+;; (setq smtpmail-stream-type 'ssl)
+;; (setq user-mail-address "morris@4028@gmail.com")
+;; (setq smtpmail-smtp-user "morris4028@gmail.com")
+;;
+
+(after! mu4e
+  (setq smtpmail-smtp-server "smtp.gmail.com")
+  (setq smtpmail-smtp-service 465)
+  (setq smtpmail-stream-type 'ssl))
+
+(setq message-send-mail-function 'smtpmail-send-it)
+(setq message-kill-buffer-on-exit t)
+
+(setq mu4e-compose-format-flowed t)
+(setq mu4e-headers-results-limit 2000)
+(setq mu4e-change-filenames-when-moving t)
+(setq mu4e-update-interval(* 10 60))
+(setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-attachment-dir "~/Downloads")
+(setq mu4e-drafts-folder "/[Gmail]/Drafts")
+(setq mu4e-sent-folder "/[Gmail]/Sent Mail")
+(setq mu4e-refile-folder "/[Gmail]/All Mail")
+(setq mu4e-trash-folder "/[Gmail]/Trash")
+(setq mu4e-maildir-shortcuts
+      `(("/Inbox"                . ?i)
+        ("/[Gmail]/Sent Mail"    . ?s)
+        ("/[Gmail]/Trash"        . ?t)
+        ("/[Gmail]/Drafts"       . ?d)
+        ("/[Gmail]/All Mail"     . ?a)
+        ))
+
+(defun efs/lookup-password (&rest keys)
+  (let ((result (apply #'auth-source-search keys)))
+    (if result
+        (funcall (plist-get (car result) :secret))
+      nil)))
+
+(defcustom mu4e-bookmarks
+  '(
+    (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key 117)
+    (:name "Today's messages" :query "date:today..now AND NOT flag:trashed" :key 116)
+    (:name "Last 7 days" :query "date:7d..now AND NOT flag:trashed" :hide-unread t :key 119)
+    (:name "Messages with images" :query "mime:image/*" :key 112)
+    (:name "Vials and Caps" :query "chanie@fivestarcorr.com" :key ?v)
+    )
+  "Customize the mu4e bookmarks."
+  :group 'mu4e
+  :type '(repeat (list (string :tag "Name")
+                       (string :tag "Query")
+                       (character :tag "Shortcut"))))
